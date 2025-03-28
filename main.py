@@ -41,9 +41,9 @@ class TagVersions:
                 old=copy(self.old), current=copy(self.current), new=copy(self.new)
             )
         return TagVersions(
-            old=_only_keep_step(self.old, step),
-            current=_only_keep_step(self.current, step),
-            new=_only_keep_step(self.new, step),
+            old=only_keep_step(self.old, step),
+            current=only_keep_step(self.current, step),
+            new=only_keep_step(self.new, step),
         )
 
     def get_tag_data_dict(self) -> dict:
@@ -59,7 +59,7 @@ class TagVersions:
         }
 
 
-def _only_keep_step(note_id_to_tags: Optional[dict], usmle_step: int) -> Optional[dict]:
+def only_keep_step(note_id_to_tags: Optional[dict], usmle_step: int) -> Optional[dict]:
     if note_id_to_tags is None:
         return None
     return {
@@ -135,19 +135,19 @@ def create_comparison_box_plots(
     # Create DataFrames for each version
     tags_by_version = tag_versions.get_tag_data_dict()
     dfs = [
-        _create_tags_dataframe(tags, version)
+        create_tags_dataframe(tags, version)
         for version, tags in tags_by_version.items()
         if tags
     ]
 
     # Combine data and create plot
     combined_data = pd.concat(dfs)
-    _create_box_plot(
+    create_box_plot(
         combined_data, usmle_step, version_names=list(tags_by_version.keys())
     )
 
 
-def _create_tags_dataframe(note_id_to_tags: dict, version: str) -> pd.DataFrame:
+def create_tags_dataframe(note_id_to_tags: dict, version: str) -> pd.DataFrame:
     """Create and label a DataFrame for a specific tag version."""
     df = pd.DataFrame(
         [(note_id, tag) for note_id, tags in note_id_to_tags.items() for tag in tags],
@@ -158,7 +158,7 @@ def _create_tags_dataframe(note_id_to_tags: dict, version: str) -> pd.DataFrame:
     return notes_per_tag
 
 
-def _create_box_plot(
+def create_box_plot(
     combined_data: pd.DataFrame, usmle_step: Optional[int], version_names: List[str]
 ) -> None:
     """Create and save a box plot comparing tag distributions."""
