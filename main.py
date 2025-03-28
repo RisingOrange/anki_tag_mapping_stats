@@ -68,65 +68,6 @@ def only_keep_step(note_id_to_tags: Optional[dict], usmle_step: int) -> Optional
     }
 
 
-def print_note_tag_stats(note_id_to_tags: dict):
-    # Convert to DataFrame of note_id, tag pairs
-    note_id_to_tags_df = pd.DataFrame(
-        [(note_id, tag) for note_id, tags in note_id_to_tags.items() for tag in tags],
-        columns=["note_id", "tag"],
-    )
-
-    # Get number of notes with tags
-    num_notes_with_tags = len(note_id_to_tags)
-
-    # Get number of unique tags
-    num_unique_tags = len(note_id_to_tags_df["tag"].unique())
-
-    # Total number of tags
-    total_tags = len([tag for tags in note_id_to_tags.values() for tag in tags])
-
-    # Print results
-    print(f"{num_notes_with_tags} notes have tags")
-    print(f"{num_unique_tags} unique tags are used")
-    print(f"{total_tags} tags in total")
-    print()
-
-    # Get average number of tags per note
-    avg_tags_per_note = note_id_to_tags_df.groupby("note_id").size().mean()
-
-    # Get median number of tags per note
-    median_tags_per_note = note_id_to_tags_df.groupby("note_id").size().median()
-
-    # Get max number of tags per note
-    max_tags_per_note = note_id_to_tags_df.groupby("note_id").size().max()
-
-    # Print results
-    print(
-        f"Average number of tags per note (with at least one tag): {avg_tags_per_note:.2f}"
-    )
-    print(
-        f"Median number of tags per note (with at least one tag): {median_tags_per_note}"
-    )
-    print(f"Max number of tags per note: {max_tags_per_note}")
-    print()
-
-    # Get average number of notes per tag
-    avg_notes_per_tag = note_id_to_tags_df.groupby("tag").size().mean()
-
-    # Get median number of notes per tag
-    median_notes_per_tag = note_id_to_tags_df.groupby("tag").size().median()
-
-    # Calculate notes per tag
-    notes_per_tag = note_id_to_tags_df.groupby("tag").size()
-
-    # Get max number of notes per tag
-    max_notes_per_tag = notes_per_tag.max()
-
-    # Print results
-    print(f"Average number of notes per tag: {avg_notes_per_tag:.2f}")
-    print(f"Median number of notes per tag: {median_notes_per_tag}")
-    print(f"Max number of notes per tag: {max_notes_per_tag}")
-
-
 def create_comparison_box_plots(
     tag_versions: TagVersions,
     usmle_step: Optional[int],
@@ -292,6 +233,65 @@ def create_tags_per_note_histogram(
     )
     plt.savefig(PLOT_DIRECTORY / filename)
     plt.close()
+
+
+def print_note_tag_stats(note_id_to_tags: dict):
+    # Convert to DataFrame of note_id, tag pairs
+    note_id_to_tags_df = pd.DataFrame(
+        [(note_id, tag) for note_id, tags in note_id_to_tags.items() for tag in tags],
+        columns=["note_id", "tag"],
+    )
+
+    # Get number of notes with tags
+    num_notes_with_tags = len(note_id_to_tags)
+
+    # Get number of unique tags
+    num_unique_tags = len(note_id_to_tags_df["tag"].unique())
+
+    # Total number of tags
+    total_tags = len([tag for tags in note_id_to_tags.values() for tag in tags])
+
+    # Print results
+    print(f"{num_notes_with_tags} notes have tags")
+    print(f"{num_unique_tags} unique tags are used")
+    print(f"{total_tags} tags in total")
+    print()
+
+    # Get average number of tags per note
+    avg_tags_per_note = note_id_to_tags_df.groupby("note_id").size().mean()
+
+    # Get median number of tags per note
+    median_tags_per_note = note_id_to_tags_df.groupby("note_id").size().median()
+
+    # Get max number of tags per note
+    max_tags_per_note = note_id_to_tags_df.groupby("note_id").size().max()
+
+    # Print results
+    print(
+        f"Average number of tags per note (with at least one tag): {avg_tags_per_note:.2f}"
+    )
+    print(
+        f"Median number of tags per note (with at least one tag): {median_tags_per_note}"
+    )
+    print(f"Max number of tags per note: {max_tags_per_note}")
+    print()
+
+    # Get average number of notes per tag
+    avg_notes_per_tag = note_id_to_tags_df.groupby("tag").size().mean()
+
+    # Get median number of notes per tag
+    median_notes_per_tag = note_id_to_tags_df.groupby("tag").size().median()
+
+    # Calculate notes per tag
+    notes_per_tag = note_id_to_tags_df.groupby("tag").size()
+
+    # Get max number of notes per tag
+    max_notes_per_tag = notes_per_tag.max()
+
+    # Print results
+    print(f"Average number of notes per tag: {avg_notes_per_tag:.2f}")
+    print(f"Median number of notes per tag: {median_notes_per_tag}")
+    print(f"Max number of notes per tag: {max_notes_per_tag}")
 
 
 def main():
