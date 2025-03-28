@@ -300,19 +300,19 @@ def main():
         "-o",
         "--old",
         type=Path,
-        help="Path to the old note ID to BB tags JSON file",
+        help="Path to the old note ID to tags JSON file",
     )
     parser.add_argument(
         "-c",
         "--current",
         type=Path,
-        help="Path to the current note ID to BB tags JSON file",
+        help="Path to the current note ID to tags JSON file",
     )
     parser.add_argument(
         "-n",
         "--new",
         type=Path,
-        help="Path to the new note ID to BB tags JSON file",
+        help="Path to the new note ID to tags JSON file",
     )
     args = parser.parse_args()
 
