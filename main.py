@@ -322,6 +322,8 @@ def main():
         new_path=args.new,
     )
 
+    PLOT_DIRECTORY.mkdir(exist_ok=True)
+
     for step in [None, 1, 2]:
         filtered_tag_versions = tags.filter_by_step(step)
         create_comparison_box_plots(filtered_tag_versions, step)
