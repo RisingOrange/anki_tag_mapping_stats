@@ -10,6 +10,8 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
+PLOT_DIRECTORY = Path("plots")
+
 
 @dataclass
 class TagVersions:
@@ -209,7 +211,7 @@ def _create_box_plot(
     filename = (
         f"notes_per_tag_comparison{'_step' + str(usmle_step) if usmle_step else ''}.png"
     )
-    plt.savefig(filename)
+    plt.savefig(PLOT_DIRECTORY / filename)
     plt.close()
 
 
@@ -288,7 +290,7 @@ def create_tags_per_note_histogram(
     filename = (
         f"tags_per_note_comparison{'_step' + str(usmle_step) if usmle_step else ''}.png"
     )
-    plt.savefig(filename)
+    plt.savefig(PLOT_DIRECTORY / filename)
     plt.close()
 
 
