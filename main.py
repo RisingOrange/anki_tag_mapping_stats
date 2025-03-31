@@ -254,7 +254,7 @@ def print_note_tag_stats(note_id_to_tags: dict):
     # Print results
     print(f"{num_notes_with_tags} notes have tags")
     print(f"{num_unique_tags} unique tags are used")
-    print(f"{total_tags} tags in total")
+    print(f"{total_tags} note-tag relations in total")
     print()
 
     # Get average number of tags per note
